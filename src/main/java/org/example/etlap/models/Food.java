@@ -59,10 +59,10 @@ public class Food {
     public String toString() {
         return "Food{" +
                 "id=" + id +
-                ", nev='" + name + '\'' +
-                ", leiras='" + description + '\'' +
-                ", kategoria=" + category +
-                ", ar='" + price + '\'' +
+                ", name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", category=" + category +
+                ", price='" + price + '\'' +
                 '}';
     }
 
