@@ -1,16 +1,26 @@
 package org.example.etlap.models;
 
 public class Food {
+    private Integer id;
     private String name;
     private String description;
     private String category;
-    private int price;
+    private Integer price;
 
-    public Food(String name, String description, String category, int price) {
+    public Food(Integer id, String name, String description, String category, Integer price) {
+        this.id = id;
         this.name = name;
         this.description = description;
         this.category = category;
         this.price = price;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -37,16 +47,23 @@ public class Food {
         this.category = category;
     }
 
-    public double getPrice() {
+    public Integer getPrice() {
         return price;
     }
 
-    public void setPrice(int price) {
+    public void setPrice(Integer price) {
         this.price = price;
     }
 
     @Override
     public String toString() {
-        return name + description + " (" + category + ") - " + price + " Ft";
+        return "Food{" +
+                "id=" + id +
+                ", nev='" + name + '\'' +
+                ", leiras='" + description + '\'' +
+                ", kategoria=" + category +
+                ", ar='" + price + '\'' +
+                '}';
     }
+
 }

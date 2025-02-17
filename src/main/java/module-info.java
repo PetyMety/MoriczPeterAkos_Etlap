@@ -2,6 +2,7 @@ module org.example.etlap {
     requires javafx.controls;
     requires javafx.fxml;
     requires java.sql;
+    requires java.xml.crypto;
 
 
     opens org.example.etlap to javafx.fxml;
