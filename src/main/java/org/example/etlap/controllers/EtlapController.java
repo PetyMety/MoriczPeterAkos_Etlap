@@ -110,6 +110,8 @@ public class EtlapController {
             AddFoodController controller = fxmlLoader.getController();
             controller.setDatabaseConnection(databaseConnection);
 
+            controller.setEtlapController(this);
+
             stage.setTitle("Új étel hozzáadása!");
             stage.setScene(scene);
             stage.setOnHidden(event-> {
@@ -122,6 +124,19 @@ public class EtlapController {
             stage.show();
         } catch (IOException e) {
             throw new RuntimeException(e);
+        }
+    }
+
+    @FXML
+    public void refreshData() {
+        try {
+            listEtlap(databaseConnection);
+        } catch (SQLException e) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error!");
+            alert.setHeaderText("Failed to refresh data!");
+            alert.setContentText(e.getMessage());
+            alert.showAndWait();
         }
     }
 

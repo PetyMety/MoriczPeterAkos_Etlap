@@ -43,6 +43,11 @@ public class AddFoodController {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setHeaderText("Succesful data acquisition!");
             alert.showAndWait();
+
+            if (etlapController != null) {
+                etlapController.refreshData();
+            }
+
             foodNameTextField.clear();
             foodDescriptionTextField.clear();
             foodPriceSpinner.getEditor().clear();
@@ -56,4 +61,11 @@ public class AddFoodController {
         }
 
     }
+
+    private EtlapController etlapController;
+
+    public void setEtlapController(EtlapController etlapController) {
+        this.etlapController = etlapController;
+    }
+
 }
