@@ -35,7 +35,7 @@ public class DatabaseConnection {
             String name = result.getString("nev");
             String description = result.getString("leiras");
             String category = result.getString("kategoria");
-            int price = result.getInt("ar");
+            Integer price = result.getInt("ar");
             foods.add(new Food(id, name, description, category, price));
         }
         return foods;
