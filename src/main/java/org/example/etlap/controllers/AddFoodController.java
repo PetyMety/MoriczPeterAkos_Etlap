@@ -32,7 +32,7 @@ public class AddFoodController {
 
 
     @javafx.fxml.FXML
-    public void addFoodButton() {
+    public void add2FoodButton() {
         String name = foodNameTextField.getText();
         String description = foodDescriptionTextField.getText();
         String category = categoryCBox.getValue();

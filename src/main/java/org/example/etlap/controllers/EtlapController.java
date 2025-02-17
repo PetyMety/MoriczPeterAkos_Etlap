@@ -10,10 +10,10 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
+import org.example.etlap.EtlapApplication;
 import org.example.etlap.database.DatabaseConnection;
 import org.example.etlap.models.Food;
 
-import javax.xml.crypto.Data;
 import java.io.IOException;
 import java.sql.SQLException;
 
@@ -24,7 +24,7 @@ public class EtlapController {
     @FXML
     private TableColumn<Food, Integer> priceTableCol;
     @FXML
-    private TableColumn<Food, String> nameTabeCol;
+    private TableColumn<Food, String> nameTableCol;
     @FXML
     private TableColumn<Food, String> categoryTableCol;
     @FXML
@@ -37,10 +37,14 @@ public class EtlapController {
     private DatabaseConnection databaseConnection;
 
     public void initialize() {
-        nameTabeCol.setCellValueFactory(new PropertyValueFactory<>("nev"));
-        categoryTableCol.setCellValueFactory(new PropertyValueFactory<>("kategoria"));
-        priceTableCol.setCellValueFactory(new PropertyValueFactory<>("ar"));
-        ObservableList<Food> selectedItems =
+        nameTableCol.setCellValueFactory(new PropertyValueFactory<>("name"));
+        categoryTableCol.setCellValueFactory(new PropertyValueFactory<>("category"));
+        priceTableCol.setCellValueFactory(new PropertyValueFactory<>("price"));
+
+        percentIncreaseSpinner.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(5,50,5,5));
+        sumPriceIncreaseSpinner.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(50,3000,50,50));
+
+        selectedItems =
                 etlapTable.getSelectionModel().getSelectedItems();
         selectedItems.addListener(new ListChangeListener<Food>() {
             @Override
@@ -53,13 +57,14 @@ public class EtlapController {
             listEtlap(databaseConnection);
         }catch (SQLException e) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Hiba!");
-            alert.setHeaderText("Nem sikerült kapcsolódni az adatbázishoz!");
+            alert.setTitle("Error!");
+            alert.setHeaderText("Failed to connect to the database!");
             alert.setContentText(e.getMessage());
             alert.showAndWait();
             Platform.exit();
         }
     }
+
     public void listEtlap(DatabaseConnection databaseConnection) throws SQLException {
         etlapTable.getItems().clear();
         etlapTable.getItems().addAll(databaseConnection.getAll());
@@ -99,10 +104,12 @@ public class EtlapController {
     public void addFoodButton() {
         try {
             Stage stage= new Stage();
-            FXMLLoader fxmlLoader = new FXMLLoader(DatabaseConnection.class.getResource("add-food-view.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(EtlapApplication.class.getResource("add-food-view.fxml"));
             Scene scene = new Scene(fxmlLoader.load(), 320, 340);
+
             AddFoodController controller = fxmlLoader.getController();
             controller.setDatabaseConnection(databaseConnection);
+
             stage.setTitle("Új étel hozzáadása!");
             stage.setScene(scene);
             stage.setOnHidden(event-> {

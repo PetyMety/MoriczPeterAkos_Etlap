@@ -65,5 +65,4 @@ public class Food {
                 ", price='" + price + '\'' +
                 '}';
     }
-
 }

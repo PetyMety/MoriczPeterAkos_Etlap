@@ -1,6 +1,5 @@
 package org.example.etlap.database;
 
-
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import org.example.etlap.models.Food;
@@ -25,6 +24,18 @@ public class DatabaseConnection {
         connection = DriverManager.getConnection(dbUrl, DB_USER, DB_PASSWORD);
     }
 
+    public ObservableList<String> getCategory() throws SQLException {
+        ObservableList<String> categories = FXCollections.observableArrayList();
+        Statement statement = connection.createStatement();
+        String sql = "SELECT kategoria FROM etlap GROUP BY kategoria";
+        ResultSet result = statement.executeQuery(sql);
+        while (result.next()) {
+            String category = result.getString("kategoria");
+            categories.add(category);
+        }
+        return categories;
+    }
+
     public List<Food> getAll() throws SQLException {
         List<Food> foods = new ArrayList<>();
         Statement statement = connection.createStatement();
@@ -39,18 +50,6 @@ public class DatabaseConnection {
             foods.add(new Food(id, name, description, category, price));
         }
         return foods;
-    }
-
-    public ObservableList<String> getCategory() throws SQLException {
-        ObservableList<String> categories = FXCollections.observableArrayList();
-        Statement statement = connection.createStatement();
-        String sql = "SELECT kategoria FROM etlap GROUP BY kategoria";
-        ResultSet result = statement.executeQuery(sql);
-        while (result.next()) {
-            String category = result.getString("kategoria");
-            categories.add(category);
-        }
-        return categories;
     }
 
     public boolean delete(Food food) throws SQLException{

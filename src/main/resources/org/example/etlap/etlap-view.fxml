@@ -83,7 +83,7 @@
     </TitledPane>
     <TableView fx:id="etlapTable" prefHeight="200.0" prefWidth="200.0">
         <columns>
-            <TableColumn fx:id="nameTabeCol" prefWidth="125.0" text="Name" />
+            <TableColumn fx:id="nameTableCol" prefWidth="125.0" text="Name" />
             <TableColumn fx:id="categoryTableCol" prefWidth="75.0" text="Category" />
             <TableColumn fx:id="priceTableCol" prefWidth="75.0" text="Price (Ft)" />
         </columns>
